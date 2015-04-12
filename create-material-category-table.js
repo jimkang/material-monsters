@@ -7,15 +7,18 @@ var categories = Object.keys(materials);
 categories.forEach(addDefaultProbability);
 
 function addDefaultProbability(category) {
-  materialCategoryProbabilities[category] = 1;
+  var weight = 2;
+  if (category.indexOf('_corpora_') === 0) {
+    // The corpora lists are materials but are things like food rather than 
+    // "classic" materials.
+    weight = 1;
+  }
+  materialCategoryProbabilities[category] = weight;
 }
 
 materialCategoryProbabilities['natural materials'] = 3;
-materialCategoryProbabilities['technical fabrics'] = 2;
-materialCategoryProbabilities['layperson metals'] = 3;
-materialCategoryProbabilities['plastic brands'] = 2;
-materialCategoryProbabilities['fabrics'] = 2;
-materialCategoryProbabilities['fibers'] = 2;
+materialCategoryProbabilities['fabrics'] = 4;
+materialCategoryProbabilities['fibers'] = 5;
 
 function createMaterialCategoryTable(probable) {
   return probable.createRangeTableFromDict(materialCategoryProbabilities);

@@ -10,7 +10,7 @@ function addDefaultProbability(category) {
   monsterCategoryProbabilities[category] = 1;
 }
 
-monsterCategoryProbabilities['monsters'] = 3;
+monsterCategoryProbabilities['monsters'] = 5;
 
 function createMonsterCategoryTable(probable) {
   return probable.createRangeTableFromDict(monsterCategoryProbabilities);
