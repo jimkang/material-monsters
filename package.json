@@ -1,8 +1,8 @@
 {
   "name": "material-monsters",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Does some cool things.",
-  "main": "index.js",
+  "main": "monster-namer.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jimkang/material-monsters.git"
