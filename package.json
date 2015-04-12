@@ -1,0 +1,28 @@
+{
+  "name": "material-monsters",
+  "version": "1.0.0",
+  "description": "Does some cool things.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jimkang/material-monsters.git"
+  },
+  "keywords": [],
+  "author": "Jim Kang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimkang/material-monsters/issues"
+  },
+  "homepage": "https://github.com/jimkang/material-monsters",
+  "devDependencies": {
+    "tape": "^3.0.3"
+  },
+  "dependencies": {
+    "export-methods": "^1.1.0",
+    "materials": "^1.0.0",
+    "monsters": "^1.0.0",
+    "probable": "^1.4.0",
+    "seedrandom": "^2.3.11",
+    "titlecase": "^1.0.2"
+  }
+}
