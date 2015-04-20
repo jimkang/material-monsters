@@ -3,7 +3,7 @@ var defaultProbable = require('probable');
 var materials = require('materials');
 var monsters = require('monsters');
 var createMaterialCategoryTable = require('./create-material-category-table');
-var createMonsterCategoryTable = require('./create-monster-category-table');
+var createMonsterTable = require('./monster-table');
 var titleCase = require('titlecase');
 
 function createMonsterNamer(opts) {
@@ -27,7 +27,7 @@ function createMonsterNamer(opts) {
   }
 
   var materialCategoryTable = createMaterialCategoryTable(probable);
-  var monsterCategoryTable = createMonsterCategoryTable(probable);
+  var monsterTable = createMonsterTable(probable);
 
   function nameMonster() {
     var namePackage = {};
@@ -35,8 +35,7 @@ function createMonsterNamer(opts) {
     var materialCategory = materialCategoryTable.roll();
     namePackage.material = probable.pickFromArray(materials[materialCategory]);
 
-    var monsterCategory = monsterCategoryTable.roll();
-    namePackage.monster = probable.pickFromArray(monsters[monsterCategory]);
+    namePackage.monster = monsterTable.roll();
 
     namePackage.name = titleCase(
       namePackage.material + ' ' + namePackage.monster

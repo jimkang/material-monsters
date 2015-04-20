@@ -1,6 +1,6 @@
 {
   "name": "material-monsters",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Does some cool things.",
   "main": "monster-namer.js",
   "repository": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "export-methods": "^1.1.0",
     "materials": "^1.1.2",
-    "monsters": "^1.0.4",
+    "monsters": "^1.1.0",
     "probable": "^1.4.0",
     "seedrandom": "^2.3.11",
     "titlecase": "^1.0.2"
