@@ -1,7 +1,7 @@
 material-monsters
 ==================
 
-This module generates monster names, combining traditional monsters with materials of all sorts.
+This module generates monster names, combining traditional monsters with subtypes of all sorts.
 
 Installation
 ------------
@@ -34,6 +34,11 @@ If you want to create a factory that uses a random function that creates reprodu
 To try it from the command line rather than as part of a program:
 
     node node_modules/material-monsters/name-monster.js
+
+Tests
+-----
+
+    make test
 
 License
 -------

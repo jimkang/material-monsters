@@ -1,12 +1,33 @@
 var createNamer = require('../monster-namer');
 var seedrandom = require('seedrandom');
 
-var seed = (new Date()).toISOString();
-// seed = '2015-04-11T12:15:41.823Z';
-console.log('seed:', seed);
+var numberOfRuns = 1;
+var fixedSeed;
 
-var namer = createNamer({
-  random: seedrandom(seed)
-});
+if (process.argv.length > 2) {
+  var extraArg = process.argv[2];
+  if (isNaN(+extraArg)) {
+    fixedSeed = extraArg;    
+  }
+  else {
+    numberOfRuns = extraArg;
+  }
+}
 
-console.log(namer.nameMonster());
+for (var i = 0; i < numberOfRuns; ++i) {
+  var seed;
+  if (fixedSeed) {
+    seed = fixedSeed;
+  }
+  else {
+    seed = (new Date()).toISOString();
+  }
+  // seed = '2015-04-26T00:18:31.294Z';
+  console.log('seed:', seed);
+
+  var namer = createNamer({
+    random: seedrandom(seed)
+  });
+
+  console.log(namer.nameMonster());
+}

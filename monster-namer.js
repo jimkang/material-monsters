@@ -5,6 +5,7 @@ var monsters = require('monsters');
 var createMaterialCategoryTable = require('./create-material-category-table');
 var createMonsterTable = require('./monster-table');
 var titleCase = require('titlecase');
+var corpora = require('corpora-project');
 
 function createMonsterNamer(opts) {
   var probable;
@@ -32,8 +33,37 @@ function createMonsterNamer(opts) {
   function nameMonster() {
     var namePackage = {};
 
-    var materialCategory = materialCategoryTable.roll();
-    namePackage.material = probable.pickFromArray(materials[materialCategory]);
+    debugger;
+    var materialArray = materialCategoryTable.roll();
+    if (typeof materialArray === 'string' &&
+      materialArray.indexOf('corpora/') === 0) {
+
+      materialArray = getArrayFromCorpora(materialArray);
+    }
+    else if (typeof materialArray === 'string' &&
+      materialArray.indexOf('materials/') === 0) {
+
+      var materialPathArray = materialArray.split('/');
+      if (materialPathArray.length < 1) {
+        throw new Error('Unrecognized material path: ' + materialArray);
+      }
+      materialArray = materials[materialPathArray[1]];
+    }
+
+    namePackage.material = probable.pickFromArray(materialArray);
+    if (typeof namePackage.material === 'object') {
+      if ('name' in namePackage.material) {
+        namePackage.material = namePackage.material.name;
+      }
+      else if ('color' in namePackage.material) {
+        namePackage.material = namePackage.material.color;
+      }
+      else {
+        throw new Error('Unrecognized material: ' +
+          JSON.stringify(namePackage.material, null, '  ')
+        );
+      }
+    }
 
     namePackage.monster = monsterTable.roll();
 
@@ -45,6 +75,13 @@ function createMonsterNamer(opts) {
 
   return exportMethods(nameMonster);
 
+}
+
+function getArrayFromCorpora(corporaPath) {
+  var pathArray = corporaPath.split('/');
+  if (pathArray.length > 3) {
+    return corpora.getFile(pathArray[1], pathArray[2])[pathArray[3]];
+  }
 }
 
 module.exports = createMonsterNamer;
