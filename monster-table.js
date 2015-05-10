@@ -3,7 +3,7 @@ var exportMethods = require('export-methods');
 
 var legendariumTableDef = {
   srd: 2,
-  lovecraft: 2,
+  lovecraft: 1,
   pokemon: 1
 };
 
@@ -18,7 +18,10 @@ var lovecraftCategoryTableDef = {
   species: 1
 };
 
+
 function createMonsterTable(probable) {
+  // return probable.createTableFromDef(legendariumTableDef);
+
   var legendariumTable = probable.createRangeTableFromDict(legendariumTableDef);
 
   var srdCategoryTable = probable.createRangeTableFromDict(srdCategoryTableDef);

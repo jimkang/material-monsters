@@ -29,5 +29,12 @@ for (var i = 0; i < numberOfRuns; ++i) {
     random: seedrandom(seed)
   });
 
-  console.log(namer.nameMonster());
+  namer.nameMonster(displayName);
+}
+
+function displayName(error, name) {
+  if (error) {
+    console.log(error);
+  }
+  console.log(name);
 }
