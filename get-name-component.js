@@ -1,7 +1,6 @@
 var createPathLoader = require('./path-loader');
 var callNextTick = require('call-next-tick');
 var async = require('async');
-var createMaterialCategoryTable = require('./create-material-category-table');
 var materials = require('materials');
 var corpora = require('corpora-project');
 
@@ -25,45 +24,48 @@ var pathLoader = createPathLoader({
   }
 });
 
-function getMaterial(opts, done) {
+function getNameComponent(opts, done) {
   var probable;
+  var path;
 
   if (opts) {
     probable = opts.probable;
+    path = opts.path;
   }
-  var materialCategoryTable = createMaterialCategoryTable(probable);
+
   async.waterfall(
     [
-      getMaterialPath,
+      passBackPath,
       pathLoader.loadFromPath,
-      getMaterialFromArray,
+      getComponentFromArray,
     ],
     done
   );
 
-  function getMaterialPath(getPathDone) {
-    callNextTick(getPathDone, null, materialCategoryTable.roll());
+  function passBackPath(passBack) {
+    callNextTick(passBack, null, path);
   }
 
-  function getMaterialFromArray(materialArray, done) {
-    var material = probable.pickFromArray(materialArray);
+  function getComponentFromArray(array, done) {
+    var component = probable.pickFromArray(array);
     var error;
 
-    if (typeof material === 'object') {
-      if ('name' in material) {
-        material = material.name;
+    // Special cases.
+    if (typeof component === 'object') {
+      if ('name' in component) {
+        component = component.name;
       }
-      else if ('color' in material) {
-        material = material.color;
+      else if ('color' in component) {
+        component = component.color;
       }
       else {
-        error = new Error('Unrecognized material: ' +
-          JSON.stringify(material, null, '  ')
+        error = new Error('Unrecognized component: ' +
+          JSON.stringify(component, null, '  ')
         );
       }
     }
-    callNextTick(done, error, material);
+    callNextTick(done, error, component);
   }
 }
 
-module.exports = getMaterial;
+module.exports = getNameComponent;

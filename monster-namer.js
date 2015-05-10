@@ -4,8 +4,9 @@ var monsters = require('monsters');
 var createMonsterTable = require('./monster-table');
 var titleCase = require('titlecase');
 var callNextTick = require('call-next-tick');
-var getMaterial = require('./get-material');
+var getNameComponent = require('./get-name-component');
 var queue = require('queue-async');
+var createMaterialCategoryTable = require('./create-material-category-table');
 
 function createMonsterNamer(opts) {
   var probable;
@@ -27,12 +28,14 @@ function createMonsterNamer(opts) {
     }
   }
 
+  var materialTable = createMaterialCategoryTable(probable);
   var monsterTable = createMonsterTable(probable);
 
   function nameMonster(done) {
     var q = queue(2);
-    q.defer(getMaterial, {
-      probable: probable
+    q.defer(getNameComponent, {
+      probable: probable,
+      path: materialTable.roll()
     });
     q.defer(function wrap(wrapDone) {
       callNextTick(wrapDone, null, monsterTable.roll());
