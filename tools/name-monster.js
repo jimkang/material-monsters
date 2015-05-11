@@ -20,7 +20,7 @@ for (var i = 0; i < numberOfRuns; ++i) {
     seed = fixedSeed;
   }
   else {
-    seed = (new Date()).toISOString();
+    seed = (new Date()).toISOString() + '|' + i;
   }
   // seed = '2015-04-26T00:18:31.294Z';
   console.log('seed:', seed);

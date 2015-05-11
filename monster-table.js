@@ -13,9 +13,12 @@ var lovecraftCategoryTableDef = {
 };
 
 var legendariumTableDef = {
-  '0-49': srdCategoryTableDef,
-  '50-69': lovecraftCategoryTableDef,
-  '70-84': 'monsters://pokemon'
+  '0-29': srdCategoryTableDef,
+  '30-39': lovecraftCategoryTableDef,
+  '40-49': 'monsters://pokemon',
+  '50-69': 'monsters://animals/wikipedia',
+  '70-79': 'monsters://starWars/species',
+  '80-89': 'monsters://zelda/enemies'
 };
 
 function createMonsterTable(probable) {
