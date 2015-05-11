@@ -37,8 +37,9 @@ function createMonsterNamer(opts) {
       probable: probable,
       path: materialTable.roll()
     });
-    q.defer(function wrap(wrapDone) {
-      callNextTick(wrapDone, null, monsterTable.roll());
+    q.defer(getNameComponent, {
+      probable: probable,
+      path: monsterTable.roll()
     });
     q.await(assemblePackage);
 

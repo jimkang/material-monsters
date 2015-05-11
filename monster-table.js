@@ -1,57 +1,25 @@
 var monsters = require('monsters');
 var exportMethods = require('export-methods');
 
-var legendariumTableDef = {
-  srd: 2,
-  lovecraft: 1,
-  pokemon: 1
-};
-
 var srdCategoryTableDef = {
-  monsters: 10,
-  animals: 2,
-  vermin: 1  
+  '0-80': 'monsters://srd/monsters',
+  '81-90': 'monsters://srd/animals',
+  '91-99': 'monsters://srd/vermin'
 };
 
 var lovecraftCategoryTableDef = {
-  deities: 2,
-  species: 1
+  '0-39': 'monsters://lovecraft/deities',
+  '40-99': 'monsters://lovecraft/species'
 };
 
+var legendariumTableDef = {
+  '0-49': srdCategoryTableDef,
+  '50-69': lovecraftCategoryTableDef,
+  '70-84': 'monsters://pokemon'
+};
 
 function createMonsterTable(probable) {
-  // return probable.createTableFromDef(legendariumTableDef);
-
-  var legendariumTable = probable.createRangeTableFromDict(legendariumTableDef);
-
-  var srdCategoryTable = probable.createRangeTableFromDict(srdCategoryTableDef);
-  var lovecraftCategoryTable = probable.createRangeTableFromDict(
-    lovecraftCategoryTableDef
-  );
-
-  function roll() {
-    // TODO: probable should handle cascading tables.
-    var legendarium = legendariumTable.roll();
-    var category;
-    var monsterList;
-
-    if (legendarium === 'pokemon') {
-      monsterList = monsters.pokemon;
-    }
-    else {
-      if (legendarium === 'srd') {
-        category = srdCategoryTable.roll();
-      }
-      else if (legendarium === 'lovecraft') {
-        category = lovecraftCategoryTable.roll();
-      }
-      monsterList = monsters[legendarium][category];
-    }
-
-    return probable.pickFromArray(monsterList);
-  }
-
-  return exportMethods(roll);
+  return probable.createTableFromDef(legendariumTableDef);
 }
 
 module.exports = createMonsterTable;

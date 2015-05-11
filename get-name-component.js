@@ -3,6 +3,7 @@ var callNextTick = require('call-next-tick');
 var async = require('async');
 var materials = require('materials');
 var corpora = require('corpora-project');
+var monsters = require('monsters');
 
 var pathLoader = createPathLoader({
   protocolHandlers: {
@@ -20,6 +21,20 @@ var pathLoader = createPathLoader({
           done, null, corpora.getFile(pathArray[0], pathArray[1])[pathArray[2]]
         );
       }
+    },
+    'monsters': function loadMonsterArray(path, done) {
+      var pathArray = path.split('/');
+      var segment;
+      var lastMonsterObject = monsters;
+
+      for (var i = 0; i < pathArray.length; ++i) {
+        segment = pathArray[i];
+        lastMonsterObject = lastMonsterObject[segment];
+        if (Array.isArray(lastMonsterObject)) {
+          break;
+        }
+      }
+      callNextTick(done, null, lastMonsterObject);
     }
   }
 });
