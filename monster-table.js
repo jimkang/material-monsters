@@ -1,5 +1,4 @@
 var monsters = require('monsters');
-var exportMethods = require('export-methods');
 
 var srdCategoryTableDef = {
   '0-80': 'monsters://srd/monsters',
@@ -13,11 +12,10 @@ var lovecraftCategoryTableDef = {
 };
 
 var legendariumTableDef = {
-  '0-29': srdCategoryTableDef,
-  '30-39': lovecraftCategoryTableDef,
-  '40-49': 'monsters://pokemon',
-  '50-69': 'monsters://animals/wikipedia',
-  '70-79': 'monsters://starWars/species',
+  '0-39': srdCategoryTableDef,
+  '40-49': lovecraftCategoryTableDef,
+  '50-59': 'monsters://pokemon',
+  '60-79': 'monsters://animals/wikipedia',
   '80-89': 'monsters://zelda/enemies'
 };
 
