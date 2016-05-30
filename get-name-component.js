@@ -5,7 +5,7 @@ var materials = require('materials');
 var monsters = require('monsters');
 var fs = require('fs');
 
-var corporaRoot = __dirname + '/node_modules/corpora/data/';
+var corporaRoot = 'node_modules/corpora/data/';
 
 var pathLoader = createPathLoader({
   protocolHandlers: {
