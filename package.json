@@ -1,6 +1,6 @@
 {
   "name": "material-monsters",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Names monsters with very specific subtypes.",
   "main": "monster-namer.js",
   "repository": {
