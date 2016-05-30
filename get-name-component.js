@@ -2,8 +2,10 @@ var createPathLoader = require('./path-loader');
 var callNextTick = require('call-next-tick');
 var async = require('async');
 var materials = require('materials');
-var corpora = require('corpora-project');
 var monsters = require('monsters');
+var fs = require('fs');
+
+var corporaRoot = __dirname + '/node_modules/corpora/data/';
 
 var pathLoader = createPathLoader({
   protocolHandlers: {
@@ -17,9 +19,20 @@ var pathLoader = createPathLoader({
         callNextTick(done, new Error('Could not understand corpora path.'));
       }
       else {
-        callNextTick(
-          done, null, corpora.getFile(pathArray[0], pathArray[1])[pathArray[2]]
-        );
+        var filePath = corporaRoot + pathArray[0] + '/' + pathArray[1] + '.json';
+        fs.readFile(filePath, {encoding: 'utf8'}, passFileAsJSON);
+
+        function passFileAsJSON(error, data) {
+          debugger;
+          if (error) {
+            done(error);
+          }
+          else {
+            var json = JSON.parse(data);
+            var targetArray = json[pathArray[2]];
+            done(null, targetArray);
+          }
+        }
       }
     },
     'monsters': function loadMonsterArray(path, done) {

@@ -14,6 +14,9 @@ test('Generate valid names', function validNames(t) {
     var name = namer.nameMonster(checkName);
 
     function checkName(error, name) {
+      if (error) {
+        console.log(error);
+      }
       t.ok(!error, 'Does not pass an error back.');
 
       t.ok(
